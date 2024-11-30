@@ -59,6 +59,12 @@ const Login = () => {
 
     const action = type === "signup" ? registerUser : loginUser;
     await action(userData);
+
+    if (type === "signup") {
+      setIsSignup({ name: "", email: "", password: "" });
+    } else {
+      setIsLogin({ email: "", password: "" });
+    }
   };
   return (
     <div className="flex justify-center items-center h-screen">
