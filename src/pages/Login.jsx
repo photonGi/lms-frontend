@@ -17,6 +17,7 @@ import {
 } from "@/features/api/authApi";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSignup, setIsSignup] = React.useState({
@@ -44,6 +45,8 @@ const Login = () => {
       isSuccess: isSuccesslogin,
     },
   ] = useLoginUserMutation();
+
+  const navigate = useNavigate();
 
   const onChangeHandler = (e, type) => {
     const { name, value } = e.target;
@@ -79,6 +82,7 @@ const Login = () => {
 
     if (isSuccesslogin && loginData?.message) {
       toast.success(loginData.message || "Login Successful.");
+      navigate("/");
     }
 
     if (loginError) {
@@ -93,7 +97,7 @@ const Login = () => {
     registerError,
   ]);
   return (
-    <div className="flex justify-center items-center h-screen mt-16">
+    <div className="flex justify-center items-center mt-[6rem] mb-[6rem]">
       <Tabs defaultValue="login" className="w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="signup">Signup</TabsTrigger>
