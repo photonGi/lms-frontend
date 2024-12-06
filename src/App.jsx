@@ -3,6 +3,7 @@ import "./App.css";
 import Login from "./pages/Login";
 import HeroSection from "./pages/student/HeroSection";
 import Mainlayout from "./layout/Mainlayout";
+import Courses from "./pages/student/Courses";
 
 const appRouter = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ const appRouter = createBrowserRouter([
         element: (
           <>
             <HeroSection />
-            {/* courses */}
+            <Courses />
           </>
         ),
       },
