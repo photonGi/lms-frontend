@@ -1,30 +1,31 @@
 import React from "react";
-import Course from "./Course";
 import { Skeleton } from "@/components/ui/skeleton";
+import Course from "./Course";
 
-const Courses = () => {
-  const courses = [1, 2, 3, 4, 5, 6, 7, 8];
-
+const MyLearning = () => {
   const isloading = false;
+  const myLearning = [1, 2];
   return (
-    <div className="bg-gray-100">
-      <div className="max-w-7xl mx-auto p-6 pt-16">
-        <h2 className="font-bold text-3xl text-center mb-16">Our Courses</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {isloading
-            ? Array.from({ length: 8 }).map((_, index) => (
-                <CourseSkeleton key={index} />
-              ))
-            : courses.map((course, index) => <Course key={index} />)}
-        </div>
+    <div className="max-w-7xl mx-auto pt-28 px-4">
+      <h1 className="font-bold text-3xl mb-10">My Learning</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {isloading ? (
+          Array.from({ length: 2 }).map((_, index) => (
+            <LearningSkeleton Key={index} />
+          ))
+        ) : myLearning.length == 0 ? (
+          <p>No courses enrolled yet.</p>
+        ) : (
+          myLearning.map((course, index) => <Course key={index} />)
+        )}
       </div>
     </div>
   );
 };
 
-export default Courses;
+export default MyLearning;
 
-const CourseSkeleton = () => {
+const LearningSkeleton = () => {
   return (
     <div className="bg-white shadow-md hover:shadow-lg transistion-shadow overflow-hidden rounded-md">
       <Skeleton className="w-full h-48" />

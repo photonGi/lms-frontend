@@ -18,9 +18,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const user = false;
+  const user = true;
   const role = "instructor";
   return (
     <div className="h-16 dark:bg-[#0A0A0A] bg-white border-b border-b-gray-200 dark:border-b-gray-800 fixed top-0 left-0 right-0 duration-300 z-10">
@@ -45,8 +46,12 @@ const Navbar = () => {
               <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>My Learning</DropdownMenuItem>
-                <DropdownMenuItem>Edit Profile</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="myLearning">My Learning</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="editProfile">Edit Profile</Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem className="text-red-600 flex justify-between">
                   <span>Logout</span>
                   <LogOut size={20} />

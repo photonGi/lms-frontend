@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import HeroSection from "./pages/student/HeroSection";
 import Mainlayout from "./layout/Mainlayout";
 import Courses from "./pages/student/Courses";
+import MyLearning from "./pages/student/MyLearning";
+import EditProfile from "./pages/student/EditProfile";
 
 const appRouter = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const appRouter = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "myLearning",
+        element: <MyLearning />,
+      },
+      {
+        path: "editProfile",
+        element: <EditProfile />,
       },
     ],
   },
