@@ -7,16 +7,20 @@ const Courses = () => {
 
   const isloading = false;
   return (
-    <div className="bg-gray-100">
-      <div className="max-w-7xl mx-auto p-6 pt-16">
-        <h2 className="font-bold text-3xl text-center mb-16">Our Courses</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {isloading
-            ? Array.from({ length: 8 }).map((_, index) => (
-                <CourseSkeleton key={index} />
-              ))
-            : courses.map((course, index) => <Course key={index} />)}
-        </div>
+    <div className="max-w-7xl mx-auto pt-[4rem]">
+      <div className="mb-10">
+        <h2 className="font-bold text-2xl text-left mb-2">Our Courses</h2>
+        <p className="text-slate-400 text-md">
+          Explore best course to boost your career.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {isloading
+          ? Array.from({ length: 8 }).map((_, index) => (
+              <CourseSkeleton key={index} />
+            ))
+          : courses.map((course, index) => <Course key={index} />)}
       </div>
     </div>
   );
@@ -31,10 +35,14 @@ const CourseSkeleton = () => {
       <div className="px-5 py-4 space-y-3">
         <Skeleton className="h-6 w-3/4" />
         <div className="flex items-center justify-between">
-          <Skeleton className="h-6 w-6 rounded-full" />
-          <Skeleton className="h-4 w-20" />
+          <div className="flex items-center gap-3">
+            <Skeleton className="h-6 w-6 rounded-full" />
+            <Skeleton className="h-4 w-16" />
+          </div>
+          <div>
+            <Skeleton className="h-4 w-20" />
+          </div>
         </div>
-        <Skeleton className="h-4 w-16" />
       </div>
       <div className="px-5 py-4 space-y-3">
         <Skeleton className="h-4 w-1/4" />

@@ -46,19 +46,27 @@ const Navbar = () => {
               <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Link to="myLearning">My Learning</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link to="editProfile">Edit Profile</Link>
-                </DropdownMenuItem>
+                <Link to="myLearning">
+                  <DropdownMenuItem className="cursor-pointer">
+                    My Learning
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="editProfile">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Edit Profile
+                  </DropdownMenuItem>
+                </Link>
                 <DropdownMenuItem className="text-red-600 flex justify-between">
                   <span>Logout</span>
                   <LogOut size={20} />
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 {role === "instructor" && (
-                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                  <Link to="editProfile">
+                    <DropdownMenuItem className="cursor-pointer">
+                      Dashboard
+                    </DropdownMenuItem>
+                  </Link>
                 )}
               </DropdownMenuContent>
             </DropdownMenu>

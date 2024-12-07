@@ -6,8 +6,8 @@ const MyLearning = () => {
   const isloading = false;
   const myLearning = [1, 2];
   return (
-    <div className="max-w-7xl mx-auto pt-28 px-4">
-      <h1 className="font-bold text-3xl mb-10">My Learning</h1>
+    <div className="max-w-7xl mx-auto pt-[6rem]">
+      <h1 className="font-bold text-2xl mb-10">My Learnings</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {isloading ? (
           Array.from({ length: 2 }).map((_, index) => (
@@ -32,10 +32,14 @@ const LearningSkeleton = () => {
       <div className="px-5 py-4 space-y-3">
         <Skeleton className="h-6 w-3/4" />
         <div className="flex items-center justify-between">
-          <Skeleton className="h-6 w-6 rounded-full" />
-          <Skeleton className="h-4 w-20" />
+          <div className="flex items-center gap-3">
+            <Skeleton className="h-6 w-6 rounded-full" />
+            <Skeleton className="h-4 w-16" />
+          </div>
+          <div>
+            <Skeleton className="h-4 w-20" />
+          </div>
         </div>
-        <Skeleton className="h-4 w-16" />
       </div>
       <div className="px-5 py-4 space-y-3">
         <Skeleton className="h-4 w-1/4" />
