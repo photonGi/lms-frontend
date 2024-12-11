@@ -7,14 +7,14 @@ const MyLearning = () => {
   const myLearning = [1, 2];
   return (
     <div className="max-w-7xl mx-auto pt-[6rem]">
-      <h1 className="font-bold text-2xl mb-10">My Learnings</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <h1 className="font-bold text-2xl">My Learnings</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-3">
         {isloading ? (
           Array.from({ length: 2 }).map((_, index) => (
             <LearningSkeleton Key={index} />
           ))
         ) : myLearning.length == 0 ? (
-          <p>No courses enrolled yet.</p>
+          <p className="text-sm text-slate-400">No courses enrolled yet.</p>
         ) : (
           myLearning.map((course, index) => <Course key={index} />)
         )}
