@@ -18,7 +18,7 @@ import { useGetProfileQuery } from "@/features/api/authApi";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const EditProfile = () => {
-  const { data, isLoading, error } = useGetProfileQuery();
+  const { data, isLoading } = useGetProfileQuery();
 
   const isloading = false;
 
