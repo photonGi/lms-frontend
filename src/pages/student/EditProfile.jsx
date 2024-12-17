@@ -14,13 +14,50 @@ import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
 import React from "react";
 import Course from "./Course";
-import { useGetProfileQuery } from "@/features/api/authApi";
+import {
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+} from "@/features/api/authApi";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 const EditProfile = () => {
-  const { data, isLoading } = useGetProfileQuery();
+  const [name, setName] = React.useState("");
+  const [profilePic, setProfilePic] = React.useState("");
+  const { data, isLoading, refetch } = useGetProfileQuery();
 
-  const isloading = false;
+  const [
+    updateUser,
+    {
+      data: updateProfilData,
+      isLoading: updateProfileLoading,
+      error: updateProfileError,
+      isError,
+      isSuccess,
+    },
+  ] = useUpdateProfileMutation();
+
+  const onChangeHandler = (e) => {
+    const file = e.target.files?.[0];
+    if (file) setProfilePic(file);
+  };
+
+  const updateUserHandler = async () => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("profileImage", profilePic);
+    await updateUser(formData);
+  };
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      toast.success(isSuccess.message || "Profile updated Successful.");
+      refetch();
+    }
+    if (isError) {
+      toast.error(updateProfileError.message || "Profile update failed.");
+    }
+  }, [updateProfilData, isSuccess, updateProfileError]);
 
   return (
     <div className="max-w-7xl mx-auto pt-[6rem]">
@@ -68,22 +105,29 @@ const EditProfile = () => {
                     <Label>Name</Label>
                     <Input
                       id="name"
-                      value="Junaid Sadiq"
                       className="col-span-3"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label>Email</Label>
+                    <Label>Profile Image</Label>
                     <Input
-                      id="email"
-                      value="junaid@gmail.com"
+                      id="image"
                       className="col-span-3"
+                      type="file"
+                      accept="image/*"
+                      onChange={onChangeHandler}
                     />
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button type="submit" disabled={isloading}>
-                    {isloading ? (
+                  <Button
+                    type="submit"
+                    disabled={updateProfileLoading}
+                    onClick={updateUserHandler}
+                  >
+                    {updateProfileLoading ? (
                       <>
                         <Loader2 className="animate-spin" /> Please wait
                       </>
