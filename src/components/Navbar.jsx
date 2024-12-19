@@ -21,9 +21,10 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutUserMutation } from "@/features/api/authApi";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const user = true;
+  const { user } = useSelector((store) => store.auth);
   const role = "instructor";
   const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
   const navigate = useNavigate();
@@ -54,7 +55,11 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage
+                    src={
+                      user?.profilePicture || "https://github.com/shadcn.png"
+                    }
+                  />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
@@ -90,8 +95,12 @@ const Navbar = () => {
             </DropdownMenu>
           ) : (
             <div className="flex items-center gap-4">
-              <Button variant="outline">Login</Button>
-              <Button>Signup</Button>
+              <Link to="login">
+                <Button variant="outline">Login</Button>
+              </Link>
+              <Link to="login">
+                <Button>Signup</Button>
+              </Link>
             </div>
           )}
           <Darkmode />
@@ -112,8 +121,19 @@ const Navbar = () => {
 
 export default Navbar;
 
-const MobileNavbar = () => {
-  const role = "instructor";
+const MobileNavbar = ({ user }) => {
+  const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
+  const navigate = useNavigate();
+
+  const handlLogout = async () => {
+    await logoutUser();
+    navigate("/");
+  };
+  React.useEffect(() => {
+    if (isSuccess) {
+      toast.success(data.message || "Logout.");
+    }
+  }, [isSuccess]);
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -135,17 +155,20 @@ const MobileNavbar = () => {
           <div className="">
             <ul className="flex flex-col">
               <span className="cursor-pointer py-2 px-4 hover:bg-[#F1F5F9] duration-300 rounded-md text-md">
-                My Learning
+                <Link to="myLearning">My Learning</Link>
               </span>
               <span className="cursor-pointer py-2 px-4 hover:bg-[#F1F5F9] duration-300 rounded-md text-md">
-                Edit Profile
+                <Link to="editProfile">Edit Profile</Link>
               </span>
-              <span className="cursor-pointer py-2 px-4 hover:bg-[#F1F5F9] duration-300 rounded-md text-md flex justify-between text-red-500">
+              <span
+                className="cursor-pointer py-2 px-4 hover:bg-[#F1F5F9] duration-300 rounded-md text-md flex justify-between text-red-500"
+                onClick={handlLogout}
+              >
                 Logout <LogOut size={20} />
               </span>
             </ul>
           </div>
-          {role === "instructor" && <Button>Dashboard</Button>}
+          {user?.role === "instructor" && <Button>Dashboard</Button>}
 
           <div className="flex gap-3 items-center border-t pt-4">
             <span className="font-bold text-md">Theme Mode</span>

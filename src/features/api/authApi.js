@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { userLoggedIn } from "../authSlice";
+import { userLoggedIn, userLoggedOut } from "../authSlice";
 
 const USER_API = "http://localhost:4000/api/v1/user";
 
@@ -23,8 +23,8 @@ export const authApi = createApi({
       }),
       async onQueryStarted(args, { queryFulfilled, dispatch }) {
         try {
-          const result = await queryFulfilled;
-          dispatch(userLoggedIn({ user: result.data.user }));
+          const { data } = await queryFulfilled;
+          dispatch(userLoggedIn({ user: data.user }));
         } catch (error) {
           console.log(error);
         }
@@ -36,6 +36,13 @@ export const authApi = createApi({
         url: "/logout",
         method: "GET",
       }),
+      async onQueryStarted(_, { queryFulfilled, dispatch }) {
+        try {
+          dispatch(userLoggedOut());
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
 
     getProfile: builder.query({
@@ -43,6 +50,14 @@ export const authApi = createApi({
         url: "/profile",
         method: "GET",
       }),
+      async onQueryStarted(_, { queryFulfilled, dispatch }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(userLoggedIn({ user: data.user }));
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
 
     updateProfile: builder.mutation({
