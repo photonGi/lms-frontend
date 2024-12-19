@@ -29,7 +29,7 @@ const EditProfile = () => {
   const [
     updateUser,
     {
-      data: updateProfilData,
+      data: updateProfileData,
       isLoading: updateProfileLoading,
       error: updateProfileError,
       isError,
@@ -57,7 +57,7 @@ const EditProfile = () => {
     if (isError) {
       toast.error(updateProfileError.message || "Profile update failed.");
     }
-  }, [updateProfilData, isSuccess, updateProfileError]);
+  }, [updateProfileData, isSuccess, updateProfileError]);
 
   return (
     <div className="max-w-7xl mx-auto pt-[6rem]">
@@ -72,6 +72,7 @@ const EditProfile = () => {
                 src={
                   data?.user?.profilePicture || "https://github.com/shadcn.png"
                 }
+                className="object-cover"
               />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
