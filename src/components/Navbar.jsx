@@ -24,7 +24,7 @@ import { toast } from "sonner";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const { user, isAuthenticated } = useSelector((store) => store.auth);
+  const { user } = useSelector((store) => store.auth);
   const role = "instructor";
   const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-5">
-          {isAuthenticated ? (
+          {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="cursor-pointer">
