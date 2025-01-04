@@ -50,6 +50,10 @@ const EditProfile = () => {
   };
 
   React.useEffect(() => {
+    refetch();
+  }, []);
+
+  React.useEffect(() => {
     if (isSuccess) {
       toast.success(isSuccess.message || "Profile updated Successful.");
       refetch();

@@ -25,7 +25,6 @@ import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
-  const role = "instructor";
   const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
   const navigate = useNavigate();
 
@@ -83,8 +82,8 @@ const Navbar = () => {
                   <LogOut size={20} />
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                {role === "instructor" && (
-                  <Link to="editProfile">
+                {user?.role === "instructor" && (
+                  <Link to="/admin/dashboard">
                     <DropdownMenuItem className="cursor-pointer">
                       Dashboard
                     </DropdownMenuItem>
@@ -112,7 +111,7 @@ const Navbar = () => {
           <School size={"30"} />
           <h1 className="font-extrabold text-2xl">E-Learning</h1>
         </div>
-        <MobileNavbar />
+        <MobileNavbar user={user} />
       </div>
     </div>
   );
@@ -153,12 +152,26 @@ const MobileNavbar = ({ user }) => {
         <div className="flex flex-col gap-5 mt-5">
           <div className="">
             <ul className="flex flex-col">
-              <span className="cursor-pointer py-2 px-4 hover:bg-[#F1F5F9] duration-300 rounded-md text-md">
-                <Link to="myLearning">My Learning</Link>
-              </span>
-              <span className="cursor-pointer py-2 px-4 hover:bg-[#F1F5F9] duration-300 rounded-md text-md">
-                <Link to="editProfile">Edit Profile</Link>
-              </span>
+              {user?.role == "instructor" && (
+                <Link
+                  to="/admin/dashboard"
+                  className="cursor-pointer py-2 px-4 hover:bg-[#F1F5F9] duration-300 rounded-md text-md"
+                >
+                  <span>Dashboard</span>
+                </Link>
+              )}
+              <Link
+                to="myLearning"
+                className="cursor-pointer py-2 px-4 hover:bg-[#F1F5F9] duration-300 rounded-md text-md"
+              >
+                <span>My Learning</span>
+              </Link>
+              <Link
+                to="editProfile"
+                className="cursor-pointer py-2 px-4 hover:bg-[#F1F5F9] duration-300 rounded-md text-md"
+              >
+                <span>Edit Profile</span>
+              </Link>
               <span
                 className="cursor-pointer py-2 px-4 hover:bg-[#F1F5F9] duration-300 rounded-md text-md flex justify-between text-red-500"
                 onClick={handlLogout}
@@ -167,7 +180,6 @@ const MobileNavbar = ({ user }) => {
               </span>
             </ul>
           </div>
-          {user?.role === "instructor" && <Button>Dashboard</Button>}
 
           <div className="flex gap-3 items-center border-t pt-4">
             <span className="font-bold text-md">Theme Mode</span>
